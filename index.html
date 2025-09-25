@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>آلة حاسبة</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .calculator {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    width: 260px;
+  }
+  #display {
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    text-align: right;
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background: #e9e9e9;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  button {
+    width: 60px;
+    height: 50px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #f5f5f5;
+  }
+  button:hover {
+    background: #dcdcdc;
+  }
+  .operator {
+    background: #ff9500;
+    color: white;
+  }
+  .operator:hover {
+    background: #e08900;
+  }
+  .equal {
+    background: #34c759;
+    color: white;
+  }
+  .equal:hover {
+    background: #28a745;
+  }
+  .clear {
+    background: #ff3b30;
+    color: white;
+  }
+  .clear:hover {
+    background: #e02b20;
+  }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <input type="text" id="display" disabled>
+  
+  <div class="row">
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button class="operator" onclick="press('/')">÷</button>
+  </div>
+  <div class="row">
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button class="operator" onclick="press('*')">×</button>
+  </div>
+  <div class="row">
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button class="operator" onclick="press('-')">−</button>
+  </div>
+  <div class="row">
+    <button onclick="press('0')">0</button>
+    <button onclick="press('.')">.</button>
+    <button class="equal" onclick="calculate()">=</button>
+    <button class="operator" onclick="press('+')">+</button>
+  </div>
+  <div class="row">
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button onclick="press('(')">(</button>
+    <button onclick="press(')')">)</button>
+    <button onclick="press('%')">%</button>
+  </div>
+  <!-- أزرار إضافية للوظائف العلمية -->
+  <div class="row">
+    <button onclick="press('Math.sin(')">sin</button>
+    <button onclick="press('Math.cos(')">cos</button>
+    <button onclick="press('Math.tan(')">tan</button>
+    <button onclick="press('Math.sqrt(')">√</button>
+  </div>
+</div>
+
+<script>
+let display = document.getElementById('display');
+let pressed = "";
+
+// قائمة الأكواد السرية وروابطها
+let secretCodes = [
+  {code: "00001", link: "https://m.facebook.com/ig/login_via/app/?locale=ar_AR&lid=1a6uKMSVJRBmpa3fM&bn=Y29tLmFuZHJvaWQuY2hyb21l&tade=Q7fLBQF%2FgPxovBl9prUhaCIyV1fVpsLXwYISWCBd%2FdXTiAM00x%2Bf92TbZ7wwWMvZHO8ZsraNgbXNIh2HBjOxKt%2BOVc%2BPE%2BQgq%2FbaoDcX8k%2FQYCh9RCH0ZDR5ijYgWbkY3hxRSUbfHQ%3D%3D"},
+  {code: "000001", link: "https://www.youtube.com/?app=desktop&hl=ar"},
+  {code: "0000001", link: "https://example.com/third"}
+];
+
+function press(char) {
+  display.value += char;
+  pressed += char;
+
+  // تحقق من الأكواد السرية
+  for (let i = 0; i < secretCodes.length; i++) {
+    if (pressed.endsWith(secretCodes[i].code)) {
+      window.location.href = secretCodes[i].link;
+      return;
+    }
+  }
+}
+
+function clearDisplay() {
+  display.value = "";
+  pressed = "";
+}
+
+function calculate() {
+  try {
+    display.value = eval(display.value);
+  } catch {
+    display.value = "خطأ";
+  }
+}
+</script>
+
+</body>
+</html>
